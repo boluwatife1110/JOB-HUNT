@@ -34,7 +34,7 @@ export default function ProfilePage() {
 
       try {
         const res = await axios.get(
-          "http://127.0.0.1:8000/users/profile/",
+          `${process.env.NEXT_PUBLIC_API_URL}/users/profile/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -84,7 +84,7 @@ export default function ProfilePage() {
       }
 
       const res = await axios.patch(
-        "http://127.0.0.1:8000/users/profile/update/",
+        `${process.env.NEXT_PUBLIC_API_URL}/users/profile/update/`,
         formData,
         {
           headers: {
@@ -137,7 +137,7 @@ export default function ProfilePage() {
             imageFile
               ? URL.createObjectURL(imageFile)
               : profile.profile_image
-              ? `http://127.0.0.1:8000${profile.profile_image}`
+              ? `${process.env.NEXT_PUBLIC_API_URL}${profile.profile_image}`
               : "/heroImage.png"
           }
           className="h-full w-full object-cover"
@@ -182,7 +182,7 @@ export default function ProfilePage() {
                 imageFile
                   ? URL.createObjectURL(imageFile)
                   : profile.profile_image
-                  ? `http://127.0.0.1:8000${profile.profile_image}`
+                  ? `${process.env.NEXT_PUBLIC_API_URL}${profile.profile_image}`
                   : "/heroImage.png"
               }
               className="h-full w-full object-cover"

@@ -44,7 +44,7 @@ const RegisterPage = () => {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/users/register/",
+        `${process.env.NEXT_PUBLIC_API_URL}/users/register/`,
         formData
       );
 
