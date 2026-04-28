@@ -4,6 +4,7 @@ import Navbar from "@/components/navigation/navbar";
 import Footer from "@/components/navigation/footer";
 
 
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100","200", "300", "400", "500", "600", "800", "900"],
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
       >
          <Navbar />
         {children}
+      
          <Footer />
       </body>
     </html>
