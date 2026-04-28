@@ -1,6 +1,6 @@
 export default function Footer() {
   const year = new Date().getFullYear()
-
+  console.log(process.env.NEXT_PUBLIC_API_URL);
   return (
     
 
@@ -24,6 +24,8 @@ export default function Footer() {
            
             </ul>
           </div>
+
+        
           <div>
             <h4 className="mb-4 text-amber-300">For Employers</h4>
             <ul className="space-y-2 text-white">

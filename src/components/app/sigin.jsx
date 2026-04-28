@@ -33,7 +33,7 @@ const LoginPage = () => {
 
     try {
       // Debug (remove later)
-      console.log("Sending:", credentials);
+     
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/users/signin/`,
@@ -52,7 +52,7 @@ localStorage.setItem("refresh_token", response.data.refresh_token);
       console.log("Login Successful!");
 
       // Redirect
-      router.push("/profile/");
+      router.push("//");
 
     } catch (err) {
       console.log("Error:", err.response?.data);
