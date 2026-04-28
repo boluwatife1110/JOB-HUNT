@@ -77,8 +77,6 @@ export default function ProfilePage() {
 
       if (profile.user_type === "recruiter") {
         formData.append("company_name", companyName);
-        formData.append("bio", bio);
-        formData.append("skills", skills);
       }
 
       if (imageFile) {
