@@ -60,7 +60,7 @@ export default function ProfilePage() {
 
   // ================= IMAGE CHANGE =================
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (file) setImageFile(file);
   };
 
@@ -84,7 +84,7 @@ export default function ProfilePage() {
       }
 
       const res = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/profile/update/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/profile/`,
         formData,
         {
           headers: {
@@ -118,20 +118,21 @@ export default function ProfilePage() {
   const isRecruiter = profile.user_type === "recruiter";
 
   return (
-    <div className="max-w-xl mx-auto   p-6 border-2 my-8 rounded-2xl shadow">
-        <div className="pb-8">
-  <button
-    onClick={() => router.back()}
-    className="flex items-center gap-2 rounded-md hover:bg-gray-200 transition px-4 py-2"
-  >
-    <ArrowLeft className="h-4 w-4" />
-    Back
-  </button>
-</div>
+    <div className="max-w-xl mx-auto p-6 border-2 my-8 rounded-2xl shadow">
 
-      {/* ================= PROFILE IMAGE ================= */}
+      {/* BACK BUTTON */}
+      <div className="pb-8">
+        <button
+          onClick={() => router.back()}
+          className="flex items-center gap-2 rounded-md hover:bg-gray-200 transition px-4 py-2"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back
+        </button>
+      </div>
+
+      {/* PROFILE IMAGE */}
       <div className="relative h-32 w-32 mx-auto rounded-full overflow-hidden bg-gray-200 mb-4 group">
-
         <img
           src={
             imageFile
@@ -144,10 +145,7 @@ export default function ProfilePage() {
           alt="profile"
         />
 
-        {/* HOVER OVERLAY */}
         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2">
-
-          {/* VIEW BUTTON */}
           <button
             onClick={() => setPreviewOpen(true)}
             className="text-white text-sm bg-black/50 px-2 py-1 rounded"
@@ -155,19 +153,14 @@ export default function ProfilePage() {
             View
           </button>
 
-          {/* EDIT BUTTON */}
           <label className="text-white text-sm bg-black/50 px-2 py-1 rounded cursor-pointer">
             Edit
-            <input
-              type="file"
-              hidden
-              onChange={handleImageChange}
-            />
+            <input type="file" hidden onChange={handleImageChange} />
           </label>
         </div>
       </div>
 
-      {/* ================= MODAL PREVIEW ================= */}
+      {/* MODAL */}
       {previewOpen && (
         <div
           onClick={() => setPreviewOpen(false)}
@@ -192,7 +185,7 @@ export default function ProfilePage() {
         </div>
       )}
 
-      {/* ================= USER INFO ================= */}
+      {/* USER INFO */}
       <div className="text-center mb-6">
         <h2 className="text-xl font-bold">
           {profile.first_name} {profile.last_name}
@@ -203,10 +196,9 @@ export default function ProfilePage() {
         </p>
       </div>
 
-      {/* ================= FORM ================= */}
+      {/* FORM */}
       <div className="border p-5 rounded-lg shadow space-y-4">
 
-        {/* BIO */}
         <div>
           <label className="font-semibold">Bio</label>
           <textarea
@@ -216,7 +208,6 @@ export default function ProfilePage() {
           />
         </div>
 
-        {/* SKILLS */}
         <div>
           <label className="font-semibold">Skills</label>
           <input
@@ -226,7 +217,6 @@ export default function ProfilePage() {
           />
         </div>
 
-        {/* COMPANY (ONLY RECRUITER) */}
         {isRecruiter && (
           <div>
             <label className="font-semibold">Company Name</label>
@@ -238,7 +228,6 @@ export default function ProfilePage() {
           </div>
         )}
 
-        {/* BUTTONS */}
         <div className="flex gap-3">
           <button
             onClick={handleUpdate}
