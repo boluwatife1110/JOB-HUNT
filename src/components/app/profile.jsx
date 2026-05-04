@@ -19,30 +19,24 @@ export default function ProfilePage() {
   const [imageFile, setImageFile] = useState(null);
   const [previewOpen, setPreviewOpen] = useState(false);
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   // ================= FETCH PROFILE =================
   useEffect(() => {
     const fetchProfile = async () => {
-   const token = localStorage.getItem("access_token");
+      const token = localStorage.getItem("access_token");
 
-axios.get("https://job-hunt-backend-production-e87d.up.railway.app/users/profile/", {
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-});
       if (!token) {
         router.push("/signin");
         return;
       }
 
       try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/users/profile/`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const res = await axios.get(`${API_URL}/users/profile/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         const data = res.data;
 
@@ -58,9 +52,9 @@ axios.get("https://job-hunt-backend-production-e87d.up.railway.app/users/profile
     };
 
     fetchProfile();
-  }, [router]);
+  }, [router, API_URL]);
 
-  // ================= IMAGE CHANGE =================
+  // ================= IMAGE =================
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
     if (file) setImageFile(file);
@@ -86,7 +80,7 @@ axios.get("https://job-hunt-backend-production-e87d.up.railway.app/users/profile
       }
 
       const res = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/profile/`,
+        `${API_URL}/users/profile/update/`,
         formData,
         {
           headers: {
@@ -122,32 +116,32 @@ axios.get("https://job-hunt-backend-production-e87d.up.railway.app/users/profile
   return (
     <div className="max-w-xl mx-auto p-6 border-2 my-8 rounded-2xl shadow">
 
-      {/* BACK BUTTON */}
+      {/* BACK */}
       <div className="pb-8">
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-2 rounded-md hover:bg-gray-200 transition px-4 py-2"
+          className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200 rounded-md"
         >
           <ArrowLeft className="h-4 w-4" />
           Back
         </button>
       </div>
 
-      {/* PROFILE IMAGE */}
+      {/* IMAGE */}
       <div className="relative h-32 w-32 mx-auto rounded-full overflow-hidden bg-gray-200 mb-4 group">
         <img
           src={
             imageFile
               ? URL.createObjectURL(imageFile)
               : profile.profile_image
-              ? `${process.env.NEXT_PUBLIC_API_URL}${profile.profile_image}`
+              ? `${API_URL}${profile.profile_image}`
               : "/heroImage.png"
           }
           className="h-full w-full object-cover"
           alt="profile"
         />
 
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2">
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-2">
           <button
             onClick={() => setPreviewOpen(true)}
             className="text-white text-sm bg-black/50 px-2 py-1 rounded"
@@ -168,16 +162,13 @@ axios.get("https://job-hunt-backend-production-e87d.up.railway.app/users/profile
           onClick={() => setPreviewOpen(false)}
           className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
         >
-          <div
-            className="h-80 w-80 bg-white overflow-hidden rounded-lg"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="h-80 w-80 bg-white rounded-lg overflow-hidden">
             <img
               src={
                 imageFile
                   ? URL.createObjectURL(imageFile)
                   : profile.profile_image
-                  ? `${process.env.NEXT_PUBLIC_API_URL}${profile.profile_image}`
+                  ? `${API_URL}${profile.profile_image}`
                   : "/heroImage.png"
               }
               className="h-full w-full object-cover"
