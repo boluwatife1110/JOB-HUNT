@@ -117,7 +117,9 @@ axios.get("https://job-hunt-backend-production-e87d.up.railway.app/users/profile
 
   // ================= LOADING =================
   if (loading) return <p className="p-6">Loading profile...</p>;
-  if (!profile) return <p className="p-6">No profile found</p>;
+  if (!profile) return <p className="p-6">No profile found
+  <a href="/signin" className="text-amber-700" >Sign in</a>
+  </p>;
 
   const isRecruiter = profile.user_type === "recruiter";
 
