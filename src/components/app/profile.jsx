@@ -55,10 +55,11 @@ export default function ProfilePage() {
   }, [router, API_URL]);
 
   // ================= IMAGE =================
-  const handleImageChange = (e) => {
-    const file = e.target.files?.[0];
-    if (file) setImageFile(file);
-  };
+  const getImageUrl = (img) => {
+  if (!img) return "/heroImage.png";
+  if (img.startsWith("http")) return img;
+  return `${API_URL}${img}`;
+};
 
   // ================= UPDATE PROFILE =================
   const handleUpdate = async () => {
@@ -163,17 +164,11 @@ export default function ProfilePage() {
           className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
         >
           <div className="h-80 w-80 bg-white rounded-lg overflow-hidden">
-            <img
-              src={
-                imageFile
-                  ? URL.createObjectURL(imageFile)
-                  : profile.profile_image
-                  ? `${API_URL}${profile.profile_image}`
-                  : "/heroImage.png"
-              }
-              className="h-full w-full object-cover"
-              alt="preview"
-            />
+           <img
+  src={getImageUrl(profile.profile_image)}
+  className="h-full w-full object-cover"
+  alt="profile"
+/>
           </div>
         </div>
       )}
