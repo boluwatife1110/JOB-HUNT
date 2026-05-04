@@ -14,6 +14,7 @@ export default function ProfilePage() {
 
   const [bio, setBio] = useState("");
   const [skills, setSkills] = useState("");
+  const [experience, setExperience] = useState("");
   const [companyName, setCompanyName] = useState("");
 
   const [imageFile, setImageFile] = useState(null);
