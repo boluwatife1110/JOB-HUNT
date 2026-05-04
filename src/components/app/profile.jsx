@@ -220,6 +220,14 @@ axios.get("https://job-hunt-backend-production-e87d.up.railway.app/users/profile
             onChange={(e) => setSkills(e.target.value)}
           />
         </div>
+        <div>
+          <label className="font-semibold">Experience</label>
+          <input
+            className="w-full border p-2 rounded"
+            value={experience}
+            onChange={(e) => setExperience(e.target.value)}
+          />
+        </div>
 
         {isRecruiter && (
           <div>
