@@ -22,11 +22,13 @@ export default function ProfilePage() {
   // ================= FETCH PROFILE =================
   useEffect(() => {
     const fetchProfile = async () => {
-      const token =
-        typeof window !== "undefined"
-          ? localStorage.getItem("access_token")
-          : null;
+   const token = localStorage.getItem("access_token");
 
+axios.get("https://job-hunt-backend-production-e87d.up.railway.app/users/profile/", {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
       if (!token) {
         router.push("/signin");
         return;
