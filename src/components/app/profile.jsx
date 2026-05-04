@@ -36,7 +36,7 @@ axios.get("https://job-hunt-backend-production-e87d.up.railway.app/users/profile
 
       try {
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/profile/`,
+          `${process.env.NEXT_PUBLIC_API_URL}/users/profile/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -87,7 +87,7 @@ axios.get("https://job-hunt-backend-production-e87d.up.railway.app/users/profile
       }
 
       const res = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/profile/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/profile/`,
         formData,
         {
           headers: {
